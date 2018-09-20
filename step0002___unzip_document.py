@@ -25,5 +25,6 @@ def process_zip_file(number):
         extract_zip('downloaded/{}.zip'.format(number), target_path)
         unzip_internal_file(target_path)
 
+
 if __name__ == '__main__':
     process_zip_file(76884)
