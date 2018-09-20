@@ -3,6 +3,7 @@ import requests
 if __name__ == '__main__':
     ano = 2006
     codigo_cvm = 9342
+
     url = "http://bvmf.bmfbovespa.com.br/cias-listadas/empresas-listadas/" \
           "ResumoDemonstrativosFinanceiros.aspx" \
           "?codigoCvm={}&idioma=pt-br".format(codigo_cvm)
