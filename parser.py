@@ -12,7 +12,7 @@ def open_file(file_path):
     return file_content.replace("\n", " ").replace("\r", " ")
 
 
-if __name__ == '__main__':
+def open_file_and_extract_refs():
     file_content = open_file("files/example.txt")
     patterns = find_pattern(file_content)
 
