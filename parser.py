@@ -1,8 +1,10 @@
 import re
 
+
 def find_pattern(file_content):
-    pattern = re.compile(r'href=\"http://www.rad.cvm.gov.br.+?\"')
+    pattern = re.compile(r'http://www.rad.cvm.gov.br.+?NumeroSequencialDocumento=\d+')
     return pattern.findall(file_content)
+
 
 def open_file(file_path):
     file = open(file_path, "r")
