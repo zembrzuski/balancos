@@ -1,0 +1,481 @@
+
+
+<!doctype html>
+<html class="no-js" lang="pt-br">
+<head id="ctl00_Head1"><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Calendar/Skins/SiteBmfBovespa/Calendar.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Calendar/Skins/SiteBmfBovespa/RadTimePicker.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Combobox/Skins/SiteBmfBovespa/Styles.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Estrutura.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/foundation.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Grid/Skins/SiteBmfBovespa/Styles.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Input/Skins/SiteBmfBovespa/styles.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/jquery.ui.datepicker.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Panelbar/Scripts/4_3_4/panelbar.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Panelbar/Skins/SiteBmfBovespa/styles.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Tabstrip/Scripts/3_6_4/tabstrip.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Tabstrip/Scripts/3_6_4/vtabstrip.css" type="text/css" rel="stylesheet" /><link href="../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Tabstrip/Skins/SiteBmfBovespa/styles.css" type="text/css" rel="stylesheet" /><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/js/vendor/modernizr.js"></script>
+    <script src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/js/vendor/jquery.js"></script>
+    <script src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/js/foundation.min.js"></script>
+    <script src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/js/responsive.tables.min.js"></script>
+
+    <script src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/js/jquery.ui.core.js"></script>
+    <script src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/js/jquery.ui.datepicker.js"></script>
+
+    <script type="text/javascript" src="/shared/js/ferramentas.js"></script>
+    <script type="text/javascript" src="/shared/js/GlobalizacaoMsgValidacao.js"></script>
+    <script type="text/javascript" src="/shared/js/DicionarioFinanceiro.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            //$('#mega-menu-1').dcMegaMenu({
+              //  rowItems: '4',
+              //  speed: 0,
+              //  fullWidth: false
+            //});
+
+            $("a.mega-menu-navbar-mercados").addClass("active");
+        });
+    </script>
+
+    <script language="javascript" type="text/javascript" src="js/Funcoes.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".list-avatar .corAlternada").addClass("list-avatar-row");
+    });
+    </script>
+
+    <script type="text/javascript">
+
+        window.addEventListener('click', iframe_resize);
+
+        function iframe_resize(altura) {
+
+            var height = 0
+            height = $("#divContainerIframe").height() + 24;
+
+            if (parent.postMessage) {
+                parent.postMessage(height, "http://www.b3.com.br");
+            }
+        }
+
+        function LimpaEstilo() {
+            $("input.radEnabledCss_SiteBmfBovespa").each(function () { $(this).removeAttr("style") });
+            $("input").mouseover(function () { $(this).removeAttr("style") });
+            $("input").mouseout(function () { $(this).removeAttr("style") });
+            $("input").focus(function () { $(this).removeAttr("style") });
+            $("input").blur(function () { $(this).removeAttr("style") });
+        }
+
+        function downloadFile(fileTitle, downloadKey, downloadArgs) {
+            var downloadUrl = "/download.ashx?key=" + downloadKey;
+
+            if (downloadArgs != null) {
+                downloadUrl += "&p=" + downloadArgs.join("&p=");
+            }
+
+            dcsMultiTrack("DCS.dcsuri", downloadUrl, "WT.ti", fileTitle);
+
+            window.top.location.href = downloadUrl;
+        }
+
+        function aplicarOrdenacao(idTabela) {
+            var tabela = document.getElementById(idTabela);
+            var style = document.createElement("style");
+
+            var initialBackgroundImageUrl = "/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Grid/Skins/SiteBmfBovespa/img/SortDesc.gif";
+            var sortUpBackgroundImageUrl = "/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Grid/Skins/SiteBmfBovespa/img/SortDesc.gif";
+            var sortDownBackgroundImageUrl = "/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Grid/Skins/SiteBmfBovespa/img/SortAsc.gif";
+
+            var columnsInitialBackgroundImage = [];
+            var columnsSortUpBackgroundImage = [];
+            var columnsSortDownBackgroundImage = [];
+
+            var styleHtml = [];
+
+            $(tabela).tablesorter();
+
+            style.type = "text/css";
+
+            $(tabela).find("th").each(function (index, element) {
+                var columnClassName = idTabela + "_col" + index;
+                var leftPosition = element.firstChild.offsetLeft + element.firstChild.offsetWidth;
+                var middleSpot = element.firstChild.offsetTop + (element.firstChild.offsetHeight / 2);
+                var initialTop = middleSpot - 4;
+                var sortUpTop = initialTop;
+                var sortDownTop = middleSpot - 7;
+
+                columnsInitialBackgroundImage.push("#" + idTabela + " th." + columnClassName + " { background-position: " + leftPosition + "px " + initialTop + "px; }");
+                columnsSortUpBackgroundImage.push("#" + idTabela + " th.headerSortUp." + columnClassName + " { background-position: " + leftPosition + "px " + sortUpTop + "px; }");
+                columnsSortDownBackgroundImage.push("#" + idTabela + " th.headerSortDown." + columnClassName + " { background-position: " + leftPosition + "px " + sortDownTop + "px; }");
+
+                $(element).addClass(columnClassName);
+            });
+
+            styleHtml.push("#" + idTabela + " th                { background-image: url('" + initialBackgroundImageUrl + "'); background-repeat: no-repeat; }");
+            styleHtml.push("#" + idTabela + " th.headerSortUp   { background-image: url('" + sortUpBackgroundImageUrl + "'); }");
+            styleHtml.push("#" + idTabela + " th.headerSortDown { background-image: url('" + sortDownBackgroundImageUrl + "'); }");
+
+            styleHtml.push(columnsInitialBackgroundImage.join("\n"));
+            styleHtml.push(columnsSortUpBackgroundImage.join("\n"));
+            styleHtml.push(columnsSortDownBackgroundImage.join("\n"));
+
+            if (style.styleSheet) {
+                style.styleSheet.cssText = styleHtml.join("\n");
+            }
+            else {
+                style.appendChild(document.createTextNode(styleHtml.join("\n")));
+            }
+
+            document.getElementsByTagName("head")[0].appendChild(style);
+        }
+	</script>
+
+<meta /><meta /><link type="text/css" rel="stylesheet" href="/WebResource.axd?d=HQS80xaryg5EaZ1bD0eiFKwCLjlIS0SzyaZfpVsuksd7pAQzy3PwnTrhTI6o1sk3EzuuJpyTQA0n2RUPCrb2p0vynTUu4RBzny7zmBLGgVyXaKpR7IIAmayPxhHo6h-vGM1gTeiDeHO8bH88tg9LAk6vk5LqmEYbaJo9v4Phc4Zj6Jg-PGxI9B1MrWHO6wrI4XjCd3j0ORjHhJbNFeO_bjuOWzk1&amp;amp;t=634530856706253598" /><link type="text/css" rel="stylesheet" href="/RadControls/TabStrip/Skins/SiteBmfBovespa/styles.css" /><title>
+
+</title></head>
+<body id="ctl00_bovespa" onload="loadnavtxt();">
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KPF8G3"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({ 'gtm.start':
+new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KPF8G3');</script>
+<!-- End Google Tag Manager -->
+
+<form method="post" action="ResumoDemonstrativosFinanceiros.aspx?codigoCvm=9342&amp;idioma=pt-br" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTUxMjc3OTM3Nw8WAh4SRXhpYmlyTGlua0Rvd25sb2FkZxYCZg9kFgQCAQ9kFgICEA8WAh4EVGV4dAUIbWVyY2Fkb3NkAgMPFgIeBm9ubG9hZAUNbG9hZG5hdnR4dCgpOxYCAgEPZBYEAgEPZBYEAgEPZBYGZg8PFgIfAQUoRElNRUQgUy5BLiBESVNUUklCVUlET1JBIERFIE1FRElDQU1FTlRPU2RkAgEPDxYCHwEFEEltcHJpbWlyIFDDoWdpbmEWBB4Hb25jbGljawUPd2luZG93LnByaW50KCk7HgVzdHlsZQUPY3Vyc29yOnBvaW50ZXI7ZAIDDw8WAh4HVmlzaWJsZWhkZAIFD2QWLAIDDxYCHwVnFgICBQ8PFgQfAQURSW5zdGFsYXIgcHJvZ3JhbWEeC05hdmlnYXRlVXJsBVxodHRwOi8vd3d3LmIzLmNvbS5ici9wdF9ici9wcm9kdXRvcy1lLXNlcnZpY29zL3NvbHVjb2VzLXBhcmEtZW1pc3NvcmVzL3Npc3RlbWEtZW1wcmVzYXMtbmV0L2RkAgcPEGQQFRcHw5psdGltbwQyMDE4BDIwMTcEMjAxNgQyMDE1BDIwMTQEMjAxMwQyMDEyBDIwMTEEMjAxMAQyMDA5BDIwMDgEMjAwNwQyMDA2BDIwMDUEMjAwNAQyMDAzBDIwMDIEMjAwMQQyMDAwBDE5OTkEMTk5OAQxOTk3FRcBMAQyMDE4BDIwMTcEMjAxNgQyMDE1BDIwMTQEMjAxMwQyMDEyBDIwMTEEMjAxMAQyMDA5BDIwMDgEMjAwNwQyMDA2BDIwMDUEMjAwNAQyMDAzBDIwMDIEMjAwMQQyMDAwBDE5OTkEMTk5OAQxOTk3FCsDF2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnFgFmZAINDxYEHgtfIUl0ZW1Db3VudAICHwVoFgRmD2QWAgIBD2QWAgIBDw8WBB8GBZ4BamF2YXNjcmlwdDpBYnJlRm9ybXVsYXJpb0NhZGFzdHJhbCgnaHR0cDovL3d3dy5yYWQuY3ZtLmdvdi5ici9FTkVUQ09OU1VMVEEvZnJtR2VyZW5jaWFQYWdpbmFGUkUuYXNweD9OdW1lcm9TZXF1ZW5jaWFsRG9jdW1lbnRvPTc3MjI0JkNvZGlnb1RpcG9JbnN0aXR1aWNhbz0yJykfAQU0MzAvMDYvMjAxOCAtIEluZm9ybWHDp8O1ZXMgVHJpbWVzdHJhaXMgLSBWZXJzw6NvIDEuMBYEHgpvbm1vdXNlb3V0BQx3cml0ZXR4dCgwKTseC29ubW91c2VvdmVyBX53cml0ZXR4dChNb250YUhpbnQoJzMwLzA2LzIwMTgnLCdMZWdpc2xhw6fDo28gU29jaWV0w6FyaWEvTGVnaXNsYcOnw6NvIFNvY2lldMOhcmlhJywnQXByZXNlbnRhw6fDo28nLCcxNC8wOC8yMDE4IDE3OjQ5JywnUCcpKTtkAgEPZBYCAgEPFgIeBWNsYXNzBQxjb3JBbHRlcm5hZGEWAgIBDw8WBB8GBZ4BamF2YXNjcmlwdDpBYnJlRm9ybXVsYXJpb0NhZGFzdHJhbCgnaHR0cDovL3d3dy5yYWQuY3ZtLmdvdi5ici9FTkVUQ09OU1VMVEEvZnJtR2VyZW5jaWFQYWdpbmFGUkUuYXNweD9OdW1lcm9TZXF1ZW5jaWFsRG9jdW1lbnRvPTc0MzYyJkNvZGlnb1RpcG9JbnN0aXR1aWNhbz0yJykfAQU0MzEvMDMvMjAxOCAtIEluZm9ybWHDp8O1ZXMgVHJpbWVzdHJhaXMgLSBWZXJzw6NvIDEuMBYEHwgFDHdyaXRldHh0KDApOx8JBX53cml0ZXR4dChNb250YUhpbnQoJzMxLzAzLzIwMTgnLCdMZWdpc2xhw6fDo28gU29jaWV0w6FyaWEvTGVnaXNsYcOnw6NvIFNvY2lldMOhcmlhJywnQXByZXNlbnRhw6fDo28nLCcxMS8wNS8yMDE4IDE4OjU5JywnUCcpKTtkAg8PFgQfBWcfBwICFgRmD2QWAgIBD2QWAgIBDw8WBB8BBTQzMC8wNi8yMDE4IC0gSW5mb3JtYcOnw7VlcyBUcmltZXN0cmFpcyAtIFZlcnPDo28gMS4wHwYFdGh0dHA6Ly93d3cucmFkLmN2bS5nb3YuYnIvZW5ldGNvbnN1bHRhL2ZybURvd25sb2FkRG9jdW1lbnRvLmFzcHg/Q29kaWdvSW5zdGl0dWljYW89MiZOdW1lcm9TZXF1ZW5jaWFsRG9jdW1lbnRvPTc3MjI0FgQfCAUMd3JpdGV0eHQoMCk7HwkFT3dyaXRldHh0KE1vbnRhSGludCgnMzAvMDYvMjAxOCcsbnVsbCwnQXByZXNlbnRhw6fDo28nLCcxNC8wOC8yMDE4IDE3OjQ5JywnUCcpKTtkAgEPZBYCAgEPFgIfCgUMY29yQWx0ZXJuYWRhFgICAQ8PFgQfAQU0MzEvMDMvMjAxOCAtIEluZm9ybWHDp8O1ZXMgVHJpbWVzdHJhaXMgLSBWZXJzw6NvIDEuMB8GBXRodHRwOi8vd3d3LnJhZC5jdm0uZ292LmJyL2VuZXRjb25zdWx0YS9mcm1Eb3dubG9hZERvY3VtZW50by5hc3B4P0NvZGlnb0luc3RpdHVpY2FvPTImTnVtZXJvU2VxdWVuY2lhbERvY3VtZW50bz03NDM2MhYEHwgFDHdyaXRldHh0KDApOx8JBU93cml0ZXR4dChNb250YUhpbnQoJzMxLzAzLzIwMTgnLG51bGwsJ0FwcmVzZW50YcOnw6NvJywnMTEvMDUvMjAxOCAxODo1OScsJ1AnKSk7ZAIRDxYCHwVoZAIXDxYEHwcCAR8FaBYCZg9kFgICAQ9kFgICAQ8PFgQfBgWeAWphdmFzY3JpcHQ6QWJyZUZvcm11bGFyaW9DYWRhc3RyYWwoJ2h0dHA6Ly93d3cucmFkLmN2bS5nb3YuYnIvRU5FVENPTlNVTFRBL2ZybUdlcmVuY2lhUGFnaW5hRlJFLmFzcHg/TnVtZXJvU2VxdWVuY2lhbERvY3VtZW50bz03MjY4MyZDb2RpZ29UaXBvSW5zdGl0dWljYW89MicpHwEFQzMxLzEyLzIwMTcgLSBEZW1vbnN0cmHDp8O1ZXMgRmluYW5jZWlyYXMgUGFkcm9uaXphZGFzIC0gVmVyc8OjbyAyLjAWBB8IBQx3cml0ZXR4dCgwKTsfCQWAAXdyaXRldHh0KE1vbnRhSGludCgnMzEvMTIvMjAxNycsJ0xlZ2lzbGHDp8OjbyBTb2NpZXTDoXJpYS9MZWdpc2xhw6fDo28gU29jaWV0w6FyaWEnLCdSZWFwcmVzZW50YcOnw6NvJywnMjYvMDMvMjAxOCAxOToyOCcsJ1AnKSk7ZAIZDxYEHwVnHwcCARYCZg9kFgICAQ9kFgICAQ8PFgQfAQVDMzEvMTIvMjAxNyAtIERlbW9uc3RyYcOnw7VlcyBGaW5hbmNlaXJhcyBQYWRyb25pemFkYXMgLSBWZXJzw6NvIDIuMB8GBXRodHRwOi8vd3d3LnJhZC5jdm0uZ292LmJyL2VuZXRjb25zdWx0YS9mcm1Eb3dubG9hZERvY3VtZW50by5hc3B4P0NvZGlnb0luc3RpdHVpY2FvPTImTnVtZXJvU2VxdWVuY2lhbERvY3VtZW50bz03MjY4MxYEHwgFDHdyaXRldHh0KDApOx8JBVF3cml0ZXR4dChNb250YUhpbnQoJzMxLzEyLzIwMTcnLG51bGwsJ1JlYXByZXNlbnRhw6fDo28nLCcyNi8wMy8yMDE4IDE5OjI4JywnUCcpKTtkAhsPFgIfBWhkAiEPFgQfBwIBHwVoFgJmD2QWAgIBD2QWAgIBDw8WBB8GBZ4BamF2YXNjcmlwdDpBYnJlRm9ybXVsYXJpb0NhZGFzdHJhbCgnaHR0cDovL3d3dy5yYWQuY3ZtLmdvdi5ici9FTkVUQ09OU1VMVEEvZnJtR2VyZW5jaWFQYWdpbmFGUkUuYXNweD9OdW1lcm9TZXF1ZW5jaWFsRG9jdW1lbnRvPTc2Njk3JkNvZGlnb1RpcG9JbnN0aXR1aWNhbz0yJykfAQUvMjAxOCAtIEZvcm11bMOhcmlvIGRlIFJlZmVyw6puY2lhIC0gVmVyc8OjbyA0LjAWBB8IBQx3cml0ZXR4dCgwKTsfCQVRd3JpdGV0eHQoTW9udGFIaW50KCcwMS8wMS8yMDE4JyxudWxsLCdSZWFwcmVzZW50YcOnw6NvJywnMDYvMDgvMjAxOCAxNzowMycsJ1AnKSk7ZAIjDxYEHwVnHwcCARYCZg9kFgICAQ9kFgICAQ8PFgYeC1Bvc3RCYWNrVXJsBXRodHRwOi8vd3d3LnJhZC5jdm0uZ292LmJyL2VuZXRjb25zdWx0YS9mcm1Eb3dubG9hZERvY3VtZW50by5hc3B4P0NvZGlnb0luc3RpdHVpY2FvPTImTnVtZXJvU2VxdWVuY2lhbERvY3VtZW50bz03NjY5Nx4PQ29tbWFuZEFyZ3VtZW50BRs3NjY5NzsxLzEvMjAxOCAwOjAwOjAwOzI7NDsfAQUvMjAxOCAtIEZvcm11bMOhcmlvIGRlIFJlZmVyw6puY2lhIC0gVmVyc8OjbyA0LjAWBB8IBQx3cml0ZXR4dCgwKTsfCQVRd3JpdGV0eHQoTW9udGFIaW50KCcwMS8wMS8yMDE4JyxudWxsLCdSZWFwcmVzZW50YcOnw6NvJywnMDYvMDgvMjAxOCAxNzowMycsJ1AnKSk7ZAIlDxYCHwVoZAIrDxYEHwcCAR8FaBYCZg9kFgICAQ9kFgICAQ8PFgQfBgWeAWphdmFzY3JpcHQ6QWJyZUZvcm11bGFyaW9DYWRhc3RyYWwoJ2h0dHA6Ly93d3cucmFkLmN2bS5nb3YuYnIvRU5FVENPTlNVTFRBL2ZybUdlcmVuY2lhUGFnaW5hRlJFLmFzcHg/TnVtZXJvU2VxdWVuY2lhbERvY3VtZW50bz03MDkzMiZDb2RpZ29UaXBvSW5zdGl0dWljYW89MicpHwEFKjIwMTggLSBGb3JtdWzDoXJpbyBDYWRhc3RyYWwgLSBWZXJzw6NvIDEuMBYEHwgFDHdyaXRldHh0KDApOx8JBU93cml0ZXR4dChNb250YUhpbnQoJzAxLzAxLzIwMTgnLG51bGwsJ0FwcmVzZW50YcOnw6NvJywnMDkvMDEvMjAxOCAxOTo0MCcsJ1AnKSk7ZAItDxYEHwVnHwcCARYCZg9kFgICAQ9kFgICAQ8PFgYfCwV0aHR0cDovL3d3dy5yYWQuY3ZtLmdvdi5ici9lbmV0Y29uc3VsdGEvZnJtRG93bmxvYWREb2N1bWVudG8uYXNweD9Db2RpZ29JbnN0aXR1aWNhbz0yJk51bWVyb1NlcXVlbmNpYWxEb2N1bWVudG89NzA5MzIfDAUbNzA5MzI7MS8xLzIwMTggMDowMDowMDsxOzE7HwEFKjIwMTggLSBGb3JtdWzDoXJpbyBDYWRhc3RyYWwgLSBWZXJzw6NvIDEuMBYEHwgFDHdyaXRldHh0KDApOx8JBU93cml0ZXR4dChNb250YUhpbnQoJzAxLzAxLzIwMTgnLG51bGwsJ0FwcmVzZW50YcOnw6NvJywnMDkvMDEvMjAxOCAxOTo0MCcsJ1AnKSk7ZAIvDxYCHwVoZAIxDw8WBh4IQ3NzQ2xhc3MFDWxpc3RhRG93bmxvYWQeBF8hU0ICAh8FaGRkAjUPFgIfBWhkAjcPFgQfBwIBHwVoFgJmD2QWAgIBD2QWAgIBDw8WBB8GBbQBamF2YXNjcmlwdDpDb25zdWx0YXJEWFcoJ2h0dHA6Ly93d3cyLmJtZmJvdmVzcGEuY29tLmJyL2R4dy9GckRYVy5hc3A/c2l0ZT1CJm1lcmNhZG89MSZyYXphbz1ESU1FRCBTLkEuIERJU1RSSUJVSURPUkEgREUgTUVESUNBTUVOVE9TJnByZWdhbz1ESU1FRCZjY3ZtPTkzNDImZGF0YT0zMS8xMi8yMDA4JnRpcG89NScpHwEFODMxLzEyLzIwMDggLSBMZWdpc2xhw6fDo28gU29jaWV0w6FyaWEgLSBSZWFwcmVzZW50YcOnw6NvFgQfCAUMd3JpdGV0eHQoMCk7HwkFZ3dyaXRldHh0KE1vbnRhSGludCgnMzEvMTIvMjAwOCcsJ0xlZ2lzbGHDp8OjbyBTb2NpZXTDoXJpYScsJ1JlYXByZXNlbnRhw6fDo28nLCcxNC8wOC8yMDA5IDE5OjQ1JywnUCcpKTtkAjkPFgQfBWcfBwIBFgJmD2QWAgIBD2QWAgIBDw8WBB8BBTgzMS8xMi8yMDA4IC0gTGVnaXNsYcOnw6NvIFNvY2lldMOhcmlhIC0gUmVhcHJlc2VudGHDp8Ojbx8GBaQBaHR0cDovL3d3dzIuYm1mYm92ZXNwYS5jb20uYnIvZHh3L0Rvd25sb2FkLmFzcD9tb2VkYT1MJnNpdGU9QiZtZXJjYWRvPTEmcmF6YW89RElNRUQgUy5BLiBESVNUUklCVUlET1JBIERFIE1FRElDQU1FTlRPUyZwcmVnYW89RElNRUQmY2N2bT05MzQyJmRhdGE9MzEvMTIvMjAwOCZ0aXBvPTMWBB8IBQx3cml0ZXR4dCgwKTsfCQVRd3JpdGV0eHQoTW9udGFIaW50KCczMS8xMi8yMDA4JyxudWxsLCdSZWFwcmVzZW50YcOnw6NvJywnMTQvMDgvMjAwOSAxOTo0NScsJ1AnKSk7ZAI7DxYCHwVoZAI/DxYCHwVnZAJBDxYEHwdmHwVoZAJDDxYEHwVnHwdmZAIDDw9kFgIfAwUcaGlzdG9yeS5iYWNrKCk7IHJldHVybiBmYWxzZWQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFRWN0bDAwJGNvbnRlbnRQbGFjZUhvbGRlckNvbnRldWRvJE1lbnVFbXByZXNhc0xpc3RhZGFzMSR0YWJNZW51RW1wcmVzYUEutRk3uu2PhwoZAMHi0hDTNtJ+" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=hOUqXcN0H6N7p4q59BbA1Z9ox0Al8eczqw7VodJeVA0FNTLL1_UjQQTE2qiPypIZMhHamvGsJlD8umoonnZeViy9TgY1&amp;t=635164183754315614" type="text/javascript"></script>
+
+
+<script src="/WebResource.axd?d=KaMnzFn9SFWfAzAgoN0vylvlTxPAhk7Blt-aTCJRDvWAsFwW9ww13GPNBJdLhTVH8F_DN7j2Q7R8uxuNaHjmLrRyERDS_4ZIoz38Jb6r51BYQvSEWseDZY69lyJ4iaFG1_1DeFCtqInQvhpvMnbiS3snOh2bwZ462bxplTuVPcAiEQMz0&amp;t=634530856694065864" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__PREVIOUSPAGE" id="__PREVIOUSPAGE" value="U3sh6WWl2t5h67jcPX8H1Y63lbHOkeEiZzh8oAkU6B6r7BhDsiGLi7eBTAzx0NzgBCYn2hK_sYYDuGZbciBdP4LJwqC4EzJxlpHTuO93DdYj_vk_wjLLqUTxKyuqaswrbx32D7T8fBqS6VXRVftgQejQjU01" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWHQLHscviDgKhoLKEBgKxz5jqCgLit7nyCQLit+2aCwLit8H9AwLit7XRCALit6m0AQLit52PBgLit/HiDgLit+XFBwLit9mYDAKJjuuBCwKJjt/kAwKJjvONBQKJjufgDQKJjtu7AgKJjs+eCwKJjqPyAwKJjpfVCAKJjouoAQKJjv+DBgLN7Zb1AwLN7YrICALN7b7xDQLS2dWKAQLdg7PFBgLE7dioCAK0s+TyDtzHnthOZTRSfnE1iccYqESoJBrw" />
+</div>
+<div id="divContainerIframe">
+<div class="row collapse">
+    <div class="large-12 columns">
+
+            <div id="conteudoImpressao">
+
+
+
+    <script language="javascript" type="text/javascript">
+    $(document).ready(function() {
+        var stringTexto = $("#ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_lblNomeEmpresa").text() + document.title;
+        $(this).attr("title", stringTexto);
+
+    });
+    function enviarTexto() {
+
+        var item = 'ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_lblNomeEmpresa';
+        var encontrado = "";
+        var listitems = document.getElementsByTagName("SPAN");
+        for (i = 0; i < listitems.length; i++) {
+            if (listitems[i].id == item) {
+                var span_textnode = listitems[i].firstChild;
+                encontrado = span_textnode.data;
+            }
+        }
+        return encontrado ;
+    }
+    </script>
+
+<h2><span id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_lblNomeEmpresa" class="label">DIMED S.A. DISTRIBUIDORA DE MEDICAMENTOS</span></h2>
+<a id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_lnkImpressao" class="hide" onclick="window.print();" style="cursor:pointer;">Imprimir Página</a>
+<div id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa" class="tabstrip RadTabStrip_SiteBmfBovespa ">
+	<!-- 3.6.4 --><script type="text/javascript" src="/WebResource.axd?d=extAwnow2kv0MRjuIn2Ck0ZK6hTxn8RjfCE5ciwBpVfhlzfMuZ8ob2cIzPCWn7eTlu20ikQ65qOcc2txFgatcBHY5XzvBZFXSiZ2XWe4hvQvzAid0d1Vt_N1Zd5XKRcxuQq6GkMR0Ve0bnXGRFGk6lsynipF12Z6PzsrigaxowbbpEAjuNdwbcnk0MVCL9cLihlbBXo40cChCf9UGo6me78LPR81&amp;t=634530856706253598"></script><span id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresaStyleSheetHolder" style="display:none;"></span><div class="levelwrap level1">
+		<ul>
+			<li class="first"><a href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa','ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa$tabPrincipal')" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabPrincipal"><span class="wrap"><span class="innerWrap">Principal</span></span></a></li>
+			<li><a href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa','ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa$tabRelatoriosFinanceiros')" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabRelatoriosFinanceiros" tabindex="1" class="selected"><span class="wrap"><span class="innerWrap">Relatórios Estruturados</span></span></a></li>
+			<li><a href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa','ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa$tabInformacoesRelevantes')" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabInformacoesRelevantes" tabindex="2"><span class="wrap"><span class="innerWrap">Informações Relevantes</span></span></a></li>
+			<li><a href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa','ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa$tabEventosCorporativos')" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabEventosCorporativos" tabindex="3"><span class="wrap"><span class="innerWrap">Eventos Corporativos</span></span></a>
+				<ul style="display:none;">
+
+						<li class="first"><a href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa','ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa$tabEventosCorporativos$tabTodosEventosCorporativos')" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabEventosCorporativos_tabTodosEventosCorporativos"><span class="wrap"><span class="innerWrap">Todos</span></span></a></li>
+						<li class="last"><a href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa','ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa$tabEventosCorporativos$tabProventosDinheiro')" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabEventosCorporativos_tabProventosDinheiro"><span class="wrap"><span class="innerWrap">Proventos em Dinheiro</span></span></a></li>
+
+				</ul>
+			</li>
+			<li class="last"><a href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa','ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa$tabHistoricoCotacoes')" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabHistoricoCotacoes" tabindex="4"><span class="wrap"><span class="innerWrap">Histórico de Cotações</span></span></a></li>
+		</ul>
+	</div><input type="hidden" id="ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_Hidden" name="ctl00$contentPlaceHolderConteudo$MenuEmpresasListadas1$tabMenuEmpresa" /><script type="text/javascript">window["ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa"] = new RadTabStrip("ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa");window["ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa"].Initialize({"MultiPageID":"rmpBovespa","Skin":"SiteBmfBovespa","CausesValidation":false,"Enabled":true},{"ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabPrincipal":{"NavigateAfterClick":true,"PageViewID":"PageView1","Value":"1"},"ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabRelatoriosFinanceiros":{"NavigateAfterClick":true,"Selected":true,"PageViewID":"PageView1","Value":"2"},"ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabInformacoesRelevantes":{"NavigateAfterClick":true,"PageViewID":"PageView1","Value":"3"},"ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabEventosCorporativos":{"NavigateAfterClick":true,"PageViewID":"PageView1","Value":"4"},"ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabEventosCorporativos_tabTodosEventosCorporativos":{"NavigateAfterClick":true,"PageViewID":"PageView1","Value":"4.1"},"ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabEventosCorporativos_tabProventosDinheiro":{"NavigateAfterClick":true,"PageViewID":"PageView1","Value":"4.2"},"ctl00_contentPlaceHolderConteudo_MenuEmpresasListadas1_tabMenuEmpresa_tabHistoricoCotacoes":{"NavigateAfterClick":true,"PageViewID":"PageView5","Value":"5"}});</script>
+</div>
+<div class="row">
+    <div class="large-12 columns text-right"></div>
+</div>
+
+
+
+
+
+
+
+            <div id="ctl00_contentPlaceHolderConteudo_exibirDados">
+
+
+
+
+            <!-- Tooltip -->
+            <div nowrap id="navtxt" data-dropdown-content class="f-dropdown content"></div>
+            <!-- Tooltip -->
+
+            <div id="tabelaDemonstrativos">
+
+            <div id="ctl00_contentPlaceHolderConteudo_pDownload">
+
+                <p><span id="ctl00_contentPlaceHolderConteudo_lblTituloDownload" class="label" style="font-weight:bold;">Download dos arquivos</span></p>
+
+                <p><span id="ctl00_contentPlaceHolderConteudo_lblMensagemDownload" class="label">Para visualizar os arquivos dos Formulários de Referência, Cadastral, de Informações Trimestrais – ITR (com datas de início do exercício social em curso maiores ou iguais a 01/01/2011) e de Demonstrações Financeiras Padronizadas – DFP (com datas de térmimo do exercício social maiores ou iguais a 31/12/2010), obtidos através de download, é necessário instalar o programa “EmpresasNet” em seu computador.</span></p>
+
+	            <div class="list-avatar">
+                    <div class="list-avatar-row">
+                        <div class="primary-action">
+                            <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_web_black_48dp.png" alt="">
+                        </div>
+                        <div class="content">
+                            <p class="primary-text"><a id="ctl00_contentPlaceHolderConteudo_lnkConscom" href="http://www.b3.com.br/pt_br/produtos-e-servicos/solucoes-para-emissores/sistema-empresas-net/">Instalar programa</a></p>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row collapse">
+            <div class="large-4 small-12 columns">
+                <span id="ctl00_contentPlaceHolderConteudo_lblAno">Ano</span>
+                <select name="ctl00$contentPlaceHolderConteudo$cmbAno" onchange="javascript:setTimeout('__doPostBack(\'ctl00$contentPlaceHolderConteudo$cmbAno\',\'\')', 0)" id="ctl00_contentPlaceHolderConteudo_cmbAno">
+		<option selected="selected" value="0">&#218;ltimo</option>
+		<option value="2018">2018</option>
+		<option value="2017">2017</option>
+		<option value="2016">2016</option>
+		<option value="2015">2015</option>
+		<option value="2014">2014</option>
+		<option value="2013">2013</option>
+		<option value="2012">2012</option>
+		<option value="2011">2011</option>
+		<option value="2010">2010</option>
+		<option value="2009">2009</option>
+		<option value="2008">2008</option>
+		<option value="2007">2007</option>
+		<option value="2006">2006</option>
+		<option value="2005">2005</option>
+		<option value="2004">2004</option>
+		<option value="2003">2003</option>
+		<option value="2002">2002</option>
+		<option value="2001">2001</option>
+		<option value="2000">2000</option>
+		<option value="1999">1999</option>
+		<option value="1998">1998</option>
+		<option value="1997">1997</option>
+
+	</select>
+            </div>
+            </div>
+
+
+            <div id="containerDemonstrativos">
+            <!-- > > > ITR > > > -->
+            <h3><span id="ctl00_contentPlaceHolderConteudo_lblItr" class="label">Informações Trimestrais - ITR</span></h3>
+
+            <div class="list-avatar">
+
+
+                <div id="ctl00_contentPlaceHolderConteudo_rptDocumentosITRDownload_ctl00_linha" class="list-avatar-row">
+                    <div class="primary-action">
+                        <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_web_black_48dp.png" alt=""/>
+                    </div>
+                    <div class="content">
+                        <p class="primary-text">
+                            <a id="ctl00_contentPlaceHolderConteudo_rptDocumentosITRDownload_ctl00_lnkDownload" onmouseout="writetxt(0);" onmouseover="writetxt(MontaHint('30/06/2018',null,'Apresentação','14/08/2018 17:49','P'));" href="http://www.rad.cvm.gov.br/enetconsulta/frmDownloadDocumento.aspx?CodigoInstituicao=2&amp;NumeroSequencialDocumento=77224">30/06/2018 - Informações Trimestrais - Versão 1.0</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+                <div id="ctl00_contentPlaceHolderConteudo_rptDocumentosITRDownload_ctl01_linha" class="corAlternada">
+                    <div class="primary-action">
+                        <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_web_black_48dp.png" alt=""/>
+                    </div>
+                    <div class="content">
+                        <p class="primary-text">
+                            <a id="ctl00_contentPlaceHolderConteudo_rptDocumentosITRDownload_ctl01_lnkDownload" onmouseout="writetxt(0);" onmouseover="writetxt(MontaHint('31/03/2018',null,'Apresentação','11/05/2018 18:59','P'));" href="http://www.rad.cvm.gov.br/enetconsulta/frmDownloadDocumento.aspx?CodigoInstituicao=2&amp;NumeroSequencialDocumento=74362">31/03/2018 - Informações Trimestrais - Versão 1.0</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+
+                <div class="divider"></div>
+            </div>
+            <!-- < < < ITR < < < -->
+
+            <!-- > > > DFP > > > -->
+            <h3><span id="ctl00_contentPlaceHolderConteudo_lblDfp" class="label">Demonstrações Financeiras Padronizadas - DFP</span></h3>
+
+            <div class="list-avatar">
+
+
+                <div id="ctl00_contentPlaceHolderConteudo_rptDocumentosDFPDownload_ctl00_linha" class="list-avatar-row">
+                    <div class="primary-action">
+                        <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_web_black_48dp.png" alt="">
+                    </div>
+                    <div class="content">
+                        <p class="primary-text">
+                            <a id="ctl00_contentPlaceHolderConteudo_rptDocumentosDFPDownload_ctl00_lnkDownload" onmouseout="writetxt(0);" onmouseover="writetxt(MontaHint('31/12/2017',null,'Reapresentação','26/03/2018 19:28','P'));" href="http://www.rad.cvm.gov.br/enetconsulta/frmDownloadDocumento.aspx?CodigoInstituicao=2&amp;NumeroSequencialDocumento=72683">31/12/2017 - Demonstrações Financeiras Padronizadas - Versão 2.0</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+
+                <div class="divider"></div>
+            </div>
+            <!-- < < < DFP < < < -->
+
+            <!-- > > > FRE > > > -->
+            <h3><span id="ctl00_contentPlaceHolderConteudo_lblFormularioReferencia" class="label">Formulário de Referência</span></h3>
+
+            <div class="list-avatar">
+
+
+                <div id="ctl00_contentPlaceHolderConteudo_rptDocumentosFREDownload_ctl00_linha" class="list-avatar-row">
+                <div class="primary-action">
+                    <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_web_black_48dp.png" alt="">
+                </div>
+                <div class="content">
+                    <p class="primary-text">
+                        <a id="ctl00_contentPlaceHolderConteudo_rptDocumentosFREDownload_ctl00_lnkDownload" onmouseout="writetxt(0);" onmouseover="writetxt(MontaHint('01/01/2018',null,'Reapresentação','06/08/2018 17:03','P'));" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$contentPlaceHolderConteudo$rptDocumentosFREDownload$ctl00$lnkDownload&quot;, &quot;&quot;, false, &quot;&quot;, &quot;http://www.rad.cvm.gov.br/enetconsulta/frmDownloadDocumento.aspx?CodigoInstituicao=2&amp;NumeroSequencialDocumento=76697&quot;, false, true))">2018 - Formulário de Referência - Versão 4.0</a>
+                    </p>
+                </div>
+                </div>
+                <div class="divider"></div>
+
+
+                <div class="divider"></div>
+            </div>
+            <!-- < < < FRE < < < -->
+
+            <!-- > > > FCA > > > -->
+            <h3><span id="ctl00_contentPlaceHolderConteudo_lblFormularioCadastral" class="label">Formulário Cadastral</span></h3>
+
+            <div class="list-avatar">
+
+
+                <div id="ctl00_contentPlaceHolderConteudo_rptDocumentosFCADownload_ctl00_linha" class="list-avatar-row">
+                    <div class="primary-action">
+                        <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_web_black_48dp.png" alt="">
+                    </div>
+                    <div class="content">
+                    <p class="primary-text">
+                        <a id="ctl00_contentPlaceHolderConteudo_rptDocumentosFCADownload_ctl00_lnkDownload" onmouseout="writetxt(0);" onmouseover="writetxt(MontaHint('01/01/2018',null,'Apresentação','09/01/2018 19:40','P'));" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$contentPlaceHolderConteudo$rptDocumentosFCADownload$ctl00$lnkDownload&quot;, &quot;&quot;, false, &quot;&quot;, &quot;http://www.rad.cvm.gov.br/enetconsulta/frmDownloadDocumento.aspx?CodigoInstituicao=2&amp;NumeroSequencialDocumento=70932&quot;, false, true))">2018 - Formulário Cadastral - Versão 1.0</a>
+                    </p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+
+            <div class="divider"></div>
+            </div>
+            <!-- < < < FCA < < < -->
+
+            </div>
+
+            <!-- > > > SEC > > > -->
+
+
+            <!-- < < < SEC < < < -->
+
+            <!-- > > > IAN > > > -->
+            <h3><span id="ctl00_contentPlaceHolderConteudo_lblIan" class="label">Informações Anuais - IAN</span></h3>
+
+            <div class="list-avatar">
+
+
+                <div id="ctl00_contentPlaceHolderConteudo_rptDocumentosIANDownload_ctl00_linha" class="list-avatar-row">
+                    <div class="primary-action">
+                        <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_web_black_48dp.png" alt="">
+                    </div>
+                    <div class="content">
+                        <p class="primary-text">
+                            <a id="ctl00_contentPlaceHolderConteudo_rptDocumentosIANDownload_ctl00_lnkDownload" onmouseout="writetxt(0);" onmouseover="writetxt(MontaHint('31/12/2008',null,'Reapresentação','14/08/2009 19:45','P'));" href="http://www2.bmfbovespa.com.br/dxw/Download.asp?moeda=L&amp;site=B&amp;mercado=1&amp;razao=DIMED S.A. DISTRIBUIDORA DE MEDICAMENTOS&amp;pregao=DIMED&amp;ccvm=9342&amp;data=31/12/2008&amp;tipo=3">31/12/2008 - Legislação Societária - Reapresentação</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+
+
+                <div class="divider"></div>
+            </div>
+            <!-- < < < IAN < < < -->
+
+
+
+            <!-- > > > GOV > > > -->
+            <h3><span id="ctl00_contentPlaceHolderConteudo_lblGov" class="label">Informe do Código de Governança - GOV</span></h3>
+            <div id="ctl00_contentPlaceHolderConteudo_NenhumDocumentoGov" data-alert="" class="alert-box secondary">
+                Nenhum documento encontrado.
+            </div>
+            <div class="list-avatar">
+
+
+
+                <div class="divider"></div>
+            </div>
+            <!-- < < < GOV < < < -->
+            </div>
+
+	        <div class="list-avatar">
+            <div class="list-avatar-row">
+                <div class="primary-action">
+                    <img src="/aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/img/ic_cloud_download_black_48dp.png" alt="">
+                </div>
+                <div class="content">
+                    <p id="downloadArquivo" class="primary-text">
+                        <a id="ctl00_contentPlaceHolderConteudo_lkbDownload" href="javascript:__doPostBack('ctl00$contentPlaceHolderConteudo$lkbDownload','')">Download dos arquivos</a>
+                    </p>
+                </div>
+            </div>
+            <div class="divider"></div>
+            </div>
+
+
+</div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns"><div class="right"><input type="submit" name="ctl00$botaoNavegacaoVoltar" value="Voltar" onclick="history.back(); return false;" id="ctl00_botaoNavegacaoVoltar" class="button secondary" /></div></div>
+</div>
+</div>
+</form>
+
+<script type="text/javascript">
+    $(document).foundation();
+    $("table").addClass("responsive");
+    LimpaEstilo();
+</script>
+
+</body>
+<script type="text/javascript">iframe_resize();</script>
+</html>
