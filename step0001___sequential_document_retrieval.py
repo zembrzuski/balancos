@@ -1,9 +1,6 @@
 import requests
 import os.path
 
-number = 77224
-init = 12917
-
 
 def download(number):
     print(number)
