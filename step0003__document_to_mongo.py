@@ -63,4 +63,9 @@ def extract_balance(id_from_bovespa):
 
 if __name__ == '__main__':
     balance = extract_balance(72683)
+
+    # pegar balanco do mongo.
+    # fazer join com o balanco extraido
+    # persistir again no mongo
+
     print("oi")
