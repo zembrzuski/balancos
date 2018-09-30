@@ -1,5 +1,6 @@
 import zipfile
 import os
+import slugify
 
 
 def extract_zip(zip_file_path, target_path):

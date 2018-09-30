@@ -1,2 +1,3 @@
 requests
 xmljson
+python-slugify

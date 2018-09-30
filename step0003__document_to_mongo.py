@@ -1,14 +1,19 @@
 import os
 from xml.etree.ElementTree import fromstring
-
 from xmljson import parker as bf
+import pymongo
+import slugify
 
 
 def read_file_as_json(file_path, field_name):
     print(file_path)
     file_open = open(file_path, "r")
     content = file_open.read()
-    return {field_name.replace('.xml', ''): bf.data(fromstring(content))}
+
+    data = bf.data(fromstring(content))
+    data['key_name'] = field_name
+
+    return {slugify.slugify(field_name.replace('.xml', '')): data}
 
 
 def concat_two_dicts_into_one(roots_json, internal_json):
@@ -49,23 +54,31 @@ def join_period_with_valor(periodos, patr):
 def extract_balance(id_from_bovespa):
     balanco_document = get_balanco_as_json(id_from_bovespa)
 
-    periodos = balanco_document['PeriodoDemonstracaoFinanceira']['PeriodoDemonstracaoFinanceira']
-    info_financeiras = balanco_document['InfoFinaDFin']['InfoFinaDFin']
+    periodos = balanco_document['periododemonstracaofinanceira']['PeriodoDemonstracaoFinanceira']
+    info_financeiras = balanco_document['infofinadfin']['InfoFinaDFin']
 
     balanco_json = list(map(lambda x: join_period_with_valor(periodos, x), info_financeiras))
 
     return {
-        'codigo_cvm': balanco_document['FormularioCadastral']['CompanhiaAberta']['CodigoCvm'],
-        'nome': balanco_document['FormularioCadastral']['CompanhiaAberta']['NomeRazaoSocialCompanhiaAberta'].strip(),
+        '_id': balanco_document['formulariocadastral']['CompanhiaAberta']['CodigoCvm'],
+        'codigo_cvm': balanco_document['formulariocadastral']['CompanhiaAberta']['CodigoCvm'],
+        'nome': balanco_document['formulariocadastral']['CompanhiaAberta']['NomeRazaoSocialCompanhiaAberta'].strip(),
         'balanco': balanco_json
     }
 
 
 if __name__ == '__main__':
     balance = extract_balance(72683)
-
+    print('balanco feito')
     # pegar balanco do mongo.
     # fazer join com o balanco extraido
     # persistir again no mongo
 
-    print("oi")
+    mongoclient = pymongo.MongoClient("mongodb://user:passwd@localhost:27017/")
+    mongodatabase = mongoclient["balancos"]
+    collection = mongodatabase["balancos"]
+    print('colecao de boas')
+    one = collection.insert_one(balance)
+    print('inserido')
+
+    print(one)
