@@ -59,6 +59,10 @@ def extract_balance(id_from_bovespa):
 
     balanco_json = list(map(lambda x: join_period_with_valor(periodos, x), info_financeiras))
 
+    #
+    # recursivamente, tenho que tirar os . das chaves aqui
+    #
+
     return {
         '_id': balanco_document['formulariocadastral']['CompanhiaAberta']['CodigoCvm'],
         'codigo_cvm': balanco_document['formulariocadastral']['CompanhiaAberta']['CodigoCvm'],
